@@ -99,6 +99,17 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     });
 
 
+    //? Sub Category Routes
+    Route::controller(SubCategoryController::class)->group(function () {
+        Route::get('/all/subcategory', 'AllSubCategory')->name('all.subcategory');
+        Route::get('/add/subcategory', 'AddSubCategory')->name('add.subcategory');
+        Route::post('/add/subcategory', 'StoreSubCategory')->name('subcategory.store');
+        Route::get('/edit/subcategory/{id}', 'EditSubCategory')->name('edit.subcategory');
+        Route::post('/update/subcategory/', 'UpdateSubCategory')->name('update.subcategory');
+        Route::get('/delete/subcategory/{id}', 'DeleteSubCategory')->name('delete.subcategory');
+    });
+
+
     //? Admin Controllers
     Route::controller(AdminController::class)->group(function () {
         Route::get('/inactive/vendor', 'InactiveVendor')->name('inactive.vendor');
