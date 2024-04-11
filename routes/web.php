@@ -3,10 +3,12 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\ProductController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
+use App\Http\Middleware\Role;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -107,6 +109,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/edit/subcategory/{id}', 'EditSubCategory')->name('edit.subcategory');
         Route::post('/update/subcategory/', 'UpdateSubCategory')->name('update.subcategory');
         Route::get('/delete/subcategory/{id}', 'DeleteSubCategory')->name('delete.subcategory');
+        Route::get('/subcategory/ajax/{id}', 'GetSubCategory');
     });
 
 
@@ -118,6 +121,18 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/activeDeatils/vendor/{id}', 'ActiveVendorDetails')->name('active.vendor.details');
         Route::post('/active/vendor/approve', 'ActiveVendorApprove')->name('active.vendor.approve');
         Route::post('/inactive/vendor/approve', 'InActiveVendorApprove')->name('inactive.vendor.approve');
+    });
+
+
+    //? All Products Routes
+    Route::controller(ProductController::class)->group(function () {
+        Route::get('/all/products', 'AllProducts')->name('all.product');
+        Route::get('/add/prodcuct', 'AddProduct')->name('add.product');
+        Route::post('/store/prodcuct', 'StoreProduct')->name('store.product');
+        Route::get('/edit/product/{id}', 'EditProduct')->name('edit.product');
+        Route::post('/update/product', 'UpdateProduct')->name('update.product');
+        Route::post('/update/product/thambnail', 'UpdateProductThambnail')->name('update.product.thambnail');
+        Route::post('/update/product/multiimage', 'UpdateProductMultiImage')->name('update.product.multiimage');
     });
 });
 
@@ -132,7 +147,6 @@ Route::middleware(['auth', 'role:vendor'])->group(function () {
     Route::get('/vendor/change/password', [VendorController::class, 'VendorChangePassword'])->name('vendor.change.password');
     Route::post('/vendor/update/password', [VendorController::class, 'VendorUpdatePassword'])->name('update.password');
 });
-
 
 
 
