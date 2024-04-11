@@ -1,6 +1,11 @@
-@extends('admin.admin_dashboard')
-@section('admin')
+@extends('vendor.vendor_dashboard')
+@section('vendor')
     <script src="{{ asset('admin_backend/assets/js/jquery.min.js') }}"></script>
+    @php
+        $id = Auth::user()->id;
+        $vendorID = App\Models\User::find($id);
+        $status = $vendorID->status;
+    @endphp
     <div class="page-content">
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3 form-group">
@@ -21,7 +26,8 @@
             <div class="card-body p-4">
                 <h5 class="card-title">Edit Product</h5>
                 <hr />
-                <form action="{{ route('update.product') }}" method="post" id="myForm" enctype="multipart/form-data">
+                <form action="{{ route('vendor.update.product') }}" method="post" id="myForm"
+                    enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" value="{{ $products->id }}" name="id">
                     <div class="form-body mt-4">
@@ -126,16 +132,6 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        <div class="col-12 form-group">
-                                            <label for="inputCollection" class="form-label">Select Vendor</label>
-                                            <select name="vendor_id" class="form-select" id="inputCollection">
-                                                <option value="">---select vendor----</option>
-                                                @foreach ($activeVendors as $vendor)
-                                                    <option {{ $vendor->id == $products->vendor_id ? 'selected' : '' }}
-                                                        value="{{ $vendor->id }}">{{ $vendor->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
                                         <div class="col-12">
                                             <div class="row g-3">
                                                 <div class="col-md-6">
@@ -199,7 +195,7 @@
         <hr>
         <!--- Update product thambnail --->
         <div class="card mb-5">
-            <form action="{{ route('update.product.thambnail') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('vendor.update.product.thambnail') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="mb-3">
@@ -234,7 +230,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <form action="{{ route('update.product.multiimage') }}" method="post"
+                        <form action="{{ route('vendor.update.product.multiimage') }}" method="post"
                             enctype="multipart/form-data">
                             @csrf
                             @foreach ($multiImages as $key => $img)
@@ -279,7 +275,7 @@
             let category_id = $(event).val();
             if (category_id.length != 0) {
                 $.ajax({
-                    url: `{{ url('/subcategory/ajax') }}/${category_id}`,
+                    url: `{{ url('/vendor/subcategory/ajax') }}/${category_id}`,
                     type: "GET",
                     dataType: "json",
                     success: (data) => {
@@ -302,13 +298,13 @@
             }
         }
 
-        $(document).ready(function() {
-            //? ckeditor
-            $('long_descp').css('display', 'block')
-            window.onload = function() {
-                CKEDITOR.replace('long_descp');
-            };
+        //? ckeditor
+        $('long_descp').css('display', 'block')
+        window.onload = function() {
+            CKEDITOR.replace('long_descp');
+        };
 
+        $(document).ready(function() {
             $('#multiImg').on('change', function() { //on file input change
                 if (window.File && window.FileReader && window.FileList && window
                     .Blob) //check File API supported browser
