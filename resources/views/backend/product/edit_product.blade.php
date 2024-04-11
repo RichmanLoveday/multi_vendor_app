@@ -249,7 +249,8 @@
                                     </td>
                                     <td>
                                         <button type="submit" class="btn btn-primary mx-2">Update Image</button>
-                                        <a href="" class="btn btn-danger">Delete</a>
+                                        <a href="{{ route('product.multiimg.delete', $img->id) }}" class="btn btn-danger"
+                                            id="delete">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -381,9 +382,9 @@
                     subcategory_id: {
                         required: true,
                     },
-                    discount_price: {
-                        required: true,
-                    }
+                    // discount_price: {
+                    //     required: true,
+                    // }
 
                 },
                 messages: {
@@ -417,9 +418,9 @@
                     product_code: {
                         required: 'Please enter product code',
                     },
-                    discount_price: {
-                        required: 'Please enter discount price',
-                    }
+                    // discount_price: {
+                    //     required: 'Please enter discount price',
+                    // }
 
                 },
                 errorElement: 'span',

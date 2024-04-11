@@ -21,6 +21,8 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
+
+                //? check user role and redirect to specific dashboard
                 return redirect(RouteServiceProvider::HOME);
             }
         }

@@ -133,6 +133,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/update/product', 'UpdateProduct')->name('update.product');
         Route::post('/update/product/thambnail', 'UpdateProductThambnail')->name('update.product.thambnail');
         Route::post('/update/product/multiimage', 'UpdateProductMultiImage')->name('update.product.multiimage');
+        Route::get('/product/multiimage/delete/{id}', 'MultiImageDelete')->name('product.multiimg.delete');
+        Route::get('/product/inactive/{id}', 'ProductInactive')->name('product.inactive');
+        Route::get('/product/active/{id}', 'ProductActive')->name('product.active');
+        Route::get('/product/delete/{id}', 'ProductDelete')->name('delete.product');
     });
 });
 

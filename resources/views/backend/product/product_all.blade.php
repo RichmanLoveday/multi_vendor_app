@@ -55,6 +55,7 @@
                                 <td>{{ $item->product_qty }}</td>
                                 <td>
                                     @if ($item->discount_price == null)
+                                        <span class="badge bg-info badge-pill rounded-pill">No Discount</span>
                                     @else
                                         @php
                                             $amount = $item->selling_price - $item->discount_price;
@@ -74,26 +75,26 @@
 
                                 <td>
                                     <a href="{{ route('edit.product', $item->id) }}" title="Edit Data"
-                                        class="btn text-white btn-sm btn-info">
+                                        class="btn  btn-sm btn-info">
                                         <i class="fa-solid fa-pencil"></i>
                                     </a>
-                                    <a href="{{ route('delete.category', $item->id) }}" id="delete" title="Delete Data"
+                                    <a href="{{ route('delete.product', $item->id) }}" id="delete" title="Delete Product"
                                         class="btn btn-sm btn-danger">
                                         <i class="fa-solid fa-trash"></i>
                                     </a>
                                     <a href="{{ route('delete.category', $item->id) }}" id="delete" title="Details Page"
-                                        class="btn btn-sm btn-warning text-white">
+                                        class="btn btn-sm btn-warning ">
                                         <i class="fa-solid fa-eye"></i>
                                     </a>
                                     @if ($item->status == 1)
-                                        <a href="{{ route('delete.category', $item->id) }}" id="delete" title="Inactive"
-                                            class="btn btn-sm btn-danger">
-                                            <i class="fa-solid fa-thumbs-up"></i>
-                                        </a>
-                                    @else
-                                        <a href="{{ route('delete.category', $item->id) }}" id="delete" title="Active"
+                                        <a href="{{ route('product.inactive', $item->id) }}" title="Inactive"
                                             class="btn btn-sm btn-danger">
                                             <i class="fa-solid fa-thumbs-down"></i>
+                                        </a>
+                                    @else
+                                        <a href="{{ route('product.active', $item->id) }}" title="Active"
+                                            class="btn btn-sm btn-danger">
+                                            <i class="fa-solid fa-thumbs-up"></i>
                                         </a>
                                     @endif
                                 </td>

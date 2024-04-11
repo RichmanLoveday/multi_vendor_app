@@ -304,9 +304,9 @@
                     subcategory_id: {
                         required: true,
                     },
-                    discount_price: {
-                        required: true,
-                    }
+                    // discount_price: {
+                    //     required: true,
+                    // }
 
                 },
                 messages: {
@@ -340,9 +340,9 @@
                     product_code: {
                         required: 'Please enter product code',
                     },
-                    discount_price: {
-                        required: 'Please enter discount price',
-                    }
+                    // discount_price: {
+                    //     required: 'Please enter discount price',
+                    // }
 
                 },
                 errorElement: 'span',
