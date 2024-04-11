@@ -10,6 +10,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendorController;
 use App\Http\Middleware\Role;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\RedirectIfAuthenticated;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,10 +33,18 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 //? LOGIN ROUTES for admin and vendor
-Route::get('/admin/login', [AdminController::class, 'AdminLogin'])->name('admin.login');
-Route::get('/vendor/login', [VendorController::class, 'VendorLogin'])->name('vendor.login');
-Route::get('/become/vendor', [VendorController::class, 'BecomeVendor'])->name('become.vendor');
-Route::post('/vendor/register', [VendorController::class, 'VendorRegister'])->name('vendor.register');
+Route::get('/admin/login', [AdminController::class, 'AdminLogin'])
+    ->name('admin.login')
+    ->middleware(RedirectIfAuthenticated::class);
+Route::get('/vendor/login', [VendorController::class, 'VendorLogin'])
+    ->name('vendor.login')
+    ->middleware(RedirectIfAuthenticated::class);
+Route::get('/become/vendor', [VendorController::class, 'BecomeVendor'])
+    ->name('become.vendor')
+    ->middleware(RedirectIfAuthenticated::class);
+Route::post('/vendor/register', [VendorController::class, 'VendorRegister'])
+    ->name('vendor.register')
+    ->middleware(RedirectIfAuthenticated::class);
 
 //? USER MIDDLEWARE ROUTES
 Route::middleware(['auth', 'verified'])->group(function () {

@@ -23,7 +23,17 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
 
                 //? check user role and redirect to specific dashboard
-                return redirect(RouteServiceProvider::HOME);
+                if (Auth::check() && Auth::user()->role == 'user') {
+                    return redirect(RouteServiceProvider::HOME);
+                }
+
+                if (Auth::check() && Auth::user()->role == 'vendor') {
+                    return redirect(RouteServiceProvider::vendorDashboard);
+                }
+
+                if (Auth::check() && Auth::user()->role == 'admin') {
+                    return redirect(RouteServiceProvider::adminDashboard);
+                }
             }
         }
 
